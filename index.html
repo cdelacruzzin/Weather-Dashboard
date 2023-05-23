@@ -34,24 +34,112 @@
     </header>
 
     <main class="row px-4">
-        <aside class="col-4">
+        <aside class="col-md-3 p-3 ">
             <form>
-                <fieldset class="row">
-                    <label>Search for a City:</label>
+                <h2>Search for a City:</h2>
+                <fieldset class="row g-3">
                     <input type="text" placeholder="Toronto">
                     <button>Search</button>
                 </fieldset>
             </form>
             <hr>
-
             <div class="row g-3">
+                <!--delete these buttons later-->
                 <button>Toronto</button>
                 <button>Toronto</button>
             </div>
-
         </aside>
 
-        <section>
+        <section class="col-md-9">
+            <div class="border p-2">
+                <h1>
+                    <span id="curCity">Toronto</span>
+                    (
+                    <span id="curDate">current date</span>
+                    )
+                </h1>
+
+                <p> Temp:
+                    <span id="temp">40</span>C
+                </p>
+                <p> Wind:
+                    <span id="wind">40</span> MPH
+                </p>
+                <p> Humidity:
+                    <span id="humidity">40</span>%
+                </p>
+            </div>
+
+            <h2>5-Day Forecast:</h2>
+            <div class="border row">
+                <div class="bg-primary text-light px-3 col-sm-2 m-2">
+                    <p>9/14/2022</p>
+                    <p>☀</p>
+                    <p> Temp:
+                        <span id="temp">40</span>C
+                    </p>
+                    <p> Wind:
+                        <span id="wind">40</span> MPH
+                    </p>
+                    <p> Humidity:
+                        <span id="humidity">40</span>%
+                    </p>
+                </div>
+
+                <div class="bg-primary text-light px-3  col-sm-2 m-2">
+                    <p>9/14/2022</p>
+                    <p>☀</p>
+                    <p> Temp:
+                        <span id="temp">40</span>C
+                    </p>
+                    <p> Wind:
+                        <span id="wind">40</span> MPH
+                    </p>
+                    <p> Humidity:
+                        <span id="humidity">40</span>%
+                    </p>
+                </div>
+                <div class="bg-primary text-light px-3 col-sm-2  m-2">
+                    <p>9/14/2022</p>
+                    <p>☀</p>
+                    <p> Temp:
+                        <span id="temp">40</span>C
+                    </p>
+                    <p> Wind:
+                        <span id="wind">40</span> MPH
+                    </p>
+                    <p> Humidity:
+                        <span id="humidity">40</span>%
+                    </p>
+                </div>
+                <div class="bg-primary text-light px-3 col-sm-2 m-2">
+                    <p>9/14/2022</p>
+                    <p>☀</p>
+                    <p> Temp:
+                        <span id="temp">40</span>C
+                    </p>
+                    <p> Wind:
+                        <span id="wind">40</span> MPH
+                    </p>
+                    <p> Humidity:
+                        <span id="humidity">40</span>%
+                    </p>
+                </div>
+                <div class="bg-primary text-light px-3 col-sm-2 m-2">
+                    <p>9/14/2022</p>
+                    <p>☀</p>
+                    <p> Temp:
+                        <span id="temp">40</span>C
+                    </p>
+                    <p> Wind:
+                        <span id="wind">40</span> MPH
+                    </p>
+                    <p> Humidity:
+                        <span id="humidity">40</span>%
+                    </p>
+                </div>
+
+            </div>
 
         </section>
     </main>
