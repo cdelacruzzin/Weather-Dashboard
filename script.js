@@ -112,20 +112,49 @@ function searchLonLan(city_name) {
                         for (var dataDayTxt of data.list) {
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) {
 
-                                dayTemps[a].date = dateRange[a];
-                                dayTemps[a].emoji
-                                dayTemps[a].temp = dataDayTxt.main.temp; //switch to C
-                                dayTemps[a].wind = dataDayTxt.wind.speed; //unit conversion meter/s to miles/hr
-                                dayTemps[a].humidity = dataDayTxt.main.humidity;
-                                console.log(dayTemps[a]);
+                                var date = dateRange[a];
+                                var emoji = '';
+                                var temp = dataDayTxt.main.temp; //switch to C
+                                var wind = dataDayTxt.wind.speed; //unit conversion meter/s to miles/hr
+                                var humidity = dataDayTxt.main.humidity;
+
+
+                                console.log(dataDayTxt);
+                                addReports(a, date, emoji, temp, wind, humidity)
                                 break;
                             }
                         }
                     }
 
+
                 })
         })
 }
+
+function addReports(a, date, emoji, temp, wind, humidity) {
+    
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 generateDateRange(startDate, numberOfDays);
