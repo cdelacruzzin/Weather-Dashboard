@@ -111,6 +111,12 @@ function searchLonLan(city_name) {
                     for (var a = 0; a < dateRange.length; a++) {
                         for (var dataDayTxt of data.list) {
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) {
+
+                                dayTemps[a].date = dateRange[a];
+                                dayTemps[a].emoji
+                                dayTemps[a].temp = dataDayTxt.main.temp;
+                                dayTemps[a]
+                                dayTemps[a]
                                 console.log(dataDayTxt);
                                 break;
                             }
