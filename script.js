@@ -12,12 +12,19 @@ var history = {
 
 var currentDate = dayjs().format('YYYY-MM-DD'); // Get the current date and format it as 'YYYY-MM-DD'
 var startDate = dayjs(currentDate); // Set the current date as the start date
-var endDate = startDate.add(5, 'day');
+var endDate = startDate.add(5, 'day');// Add 5 days to the start date to get the end date
 var dateRange =[];
 
-for (let i = 0; i <= 5; i++) {
-    dateRange.push(startDate.add(i, 'day').format('YYYY-MM-DD'));
+  function generateDateRange(startDate, numberOfDays) {
+    for (let i = 0; i < numberOfDays; i++) {
+      dateRange.push(startDate.add(i, 'day').format('YYYY-MM-DD'));
+    }
   }
+
+
+
+
+
 
 console.log(currentDate);
 console.log(dateRange);
