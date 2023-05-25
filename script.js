@@ -14,17 +14,17 @@ var currentDate = dayjs().format('YYYY-MM-DD'); // Get the current date and form
 var startDate = dayjs(currentDate); // Set the current date as the start date
 var endDate = startDate.add(5, 'day');// Add 5 days to the start date to get the end date
 var numberOfDays = 5;
-var dateRange =[];
+var dateRange = [];
 
 
-  
 
-  function generateDateRange(startDate, numberOfDays) {
+
+function generateDateRange(startDate, numberOfDays) {
     for (let i = 0; i <= numberOfDays; i++) {
-      dateRange.push(startDate.add(i, 'day').format('YYYY-MM-DD'));
+        dateRange.push(startDate.add(i, 'day').format('YYYY-MM-DD'));
     }
     console.log(dateRange);
-  }
+}
 
 //takes the city name as an argument
 // dynamically creates a new property for the history object 
@@ -43,9 +43,9 @@ function appendHistory(city) {
 
 
 //gets the longitude and latitude of the inputted city
-    var API_key = 'd4c5beab8e001bfce3529767a56a26ea';
-    var lon;
-    var lat;
+var API_key = 'd4c5beab8e001bfce3529767a56a26ea';
+var lon;
+var lat;
 function searchLonLan(city_name) {
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_key}`
 
@@ -61,15 +61,28 @@ function searchLonLan(city_name) {
             lon = data.coord.lon;
 
             fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('error: ' + response.status); //throws an error if city does not exist
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data.list);
-            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('error: ' + response.status); //throws an error if city does not exist
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // console.log(data.list[0].dt_txt);
+                    
+
+
+
+                    for (var dataDayTxt of data.list) {
+                        for(var a = 0; a < dateRange.length; a++) {
+                            if(dataDayTxt.dt_txt.includes(dateRange[a])) {
+                                console.log(dataDayTxt); 
+                                break;
+                            }
+                        }
+                    }
+
+                })
         })
 }
 
