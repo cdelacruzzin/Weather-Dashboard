@@ -15,19 +15,14 @@ var startDate = dayjs(currentDate); // Set the current date as the start date
 var endDate = startDate.add(5, 'day');// Add 5 days to the start date to get the end date
 var dateRange =[];
 
+
+  
+
   function generateDateRange(startDate, numberOfDays) {
     for (let i = 0; i < numberOfDays; i++) {
       dateRange.push(startDate.add(i, 'day').format('YYYY-MM-DD'));
     }
   }
-
-
-
-
-
-
-console.log(currentDate);
-console.log(dateRange);
 
 //takes the city name as an argument
 // dynamically creates a new property for the history object 
@@ -84,6 +79,7 @@ function searchLonLan(city_name) {
 
 
 
+generateDateRange(startDate, numberOfDays);
 
 // onClick function that stores the value of the search bar when clicked
 searchBtn.on('click', function (event) {
