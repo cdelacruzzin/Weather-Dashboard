@@ -34,6 +34,8 @@ function appendHistory(city){
 //creates buttonEL
 //adds a class that all appended buttons will have
 //buttonEL.text = ${city}
+// button will look like : <button class="sameclass" onClick="searchWeather(${city}">
+//appends this button to historyContainer
 
 }
 
@@ -46,7 +48,9 @@ function searchWeather(city) {
 
 
 
-
+function hi() {
+    console.log('ddddddd');
+}
 
 
 
