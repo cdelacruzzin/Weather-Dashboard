@@ -114,10 +114,10 @@ function searchLonLan(city_name) {
 
                                 dayTemps[a].date = dateRange[a];
                                 dayTemps[a].emoji
-                                dayTemps[a].temp = dataDayTxt.main.temp;
-                                dayTemps[a]
-                                dayTemps[a]
-                                console.log(dataDayTxt);
+                                dayTemps[a].temp = dataDayTxt.main.temp; //switch to C
+                                dayTemps[a].wind = dataDayTxt.wind.speed; //unit conversion meter/s to miles/hr
+                                dayTemps[a].humidity = dataDayTxt.main.humidity;
+                                console.log(dayTemps[a]);
                                 break;
                             }
                         }
