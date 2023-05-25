@@ -119,7 +119,7 @@ function searchLonLan(city_name) {
                                 var humidity = dataDayTxt.main.humidity;
 
 
-                                console.log(dataDayTxt);
+                                // console.log(dataDayTxt);
                                 addReports(a, date, emoji, temp, wind, humidity)
                                 break;
                             }
@@ -132,8 +132,13 @@ function searchLonLan(city_name) {
 }
 
 function addReports(a, date, emoji, temp, wind, humidity) {
-    
+    dayTemps[a].date = date;
+    dayTemps[a].emoji = emoji;
+    dayTemps[a].temp = temp;
+    dayTemps[a].wind = wind;
+    dayTemps[a].humidity = humidity;
 
+    console.log(dayTemps);
 }
 
 
