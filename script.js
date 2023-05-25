@@ -1,19 +1,7 @@
-//have queries linking search bar, search btn.
-//when button is clicked, the value of the search bar is stored to a 'inputCity' variable
-// add buttons dynamically to display a history of searched cities
 var searchBtn = $('#searchBtn');
 var searchBar = $('#searchBar');
 var historyContainer = $('#history');
 var inputCity ="";
-
-
-
-
-
-
-
-
-
 
 // will create a history container
 // elements will be stored in an object
@@ -31,15 +19,16 @@ var btnName = $('<button>');
 btnName.text(city);
 btnName.val(city);
 btnName.addClass('historyBns');
-
 historyContainer.append(btnName);
-
 history[city] = btnName;
 }
 
 
 
+//gets the longitude and latitude of the inputted city
 var API_KEY = 'd4c5beab8e001bfce3529767a56a26ea';
+var longitude;
+var latitude;
 function searchLonLan(city_name) {
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_KEY}`
 
@@ -51,9 +40,11 @@ function searchLonLan(city_name) {
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        latitude =data.coord.lat;
+        longitude = data.coord.lon
+
+        appendHistory(city_name);
     })
-    
 }
 
 
@@ -62,6 +53,7 @@ function searchLonLan(city_name) {
 searchBtn.on('click', function(event) {
     event.preventDefault();
     inputCity = searchBar.val();
-    appendHistory(inputCity);
-    searchWeather(inputCity);
+    
+    searchLonLan(inputCity);
+    
 });
