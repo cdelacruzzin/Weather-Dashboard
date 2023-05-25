@@ -43,7 +43,7 @@ function searchLonLan(city_name) {
             latitude = data.coord.lat; //stores logitude/latitude from data to corresponding variables
             longitude = data.coord.lon
 
-            fetch(`api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`)
+            fetch(`https://pro.openweathermap.org/data/2.5/forecast/climate?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&cnt=5`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('error: ' + response.status);
@@ -51,7 +51,7 @@ function searchLonLan(city_name) {
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                console.log(data.list);
             })
             appendHistory(city_name);
         })
