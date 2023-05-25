@@ -20,16 +20,29 @@ var inputCity ="";
 //the key will be the city name, the value will be a function
 
 var history = {
-
+    //Austin: searchWeather('Austin')
 }
 
 //takes the city name as an argument
-//
+// dynamically creates a new property for the history object 
+// the key will be the city name, the value will be searchWeather()
+//creates a button element with the city name as its text
+//all buttons will be in the same class to share an onClick functionality
 function appendHistory(city){
+//history.${city} = searchWeather('${city}')
+//history.Austin = searchWeather('Austin')
+//creates buttonEL
+//adds a class that all appended buttons will have
+//buttonEL.text = ${city}
 
 }
 
 
+
+//checks if the 
+function searchWeather(city) {
+    
+}
 
 
 
