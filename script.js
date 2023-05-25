@@ -69,12 +69,10 @@ function searchLonLan(city_name) {
                 })
                 .then(data => {
                     // console.log(data.list[0].dt_txt);
-                    
 
 
-
-                    for (var dataDayTxt of data.list) {
-                        for(var a = 0; a < dateRange.length; a++) {
+                    for (var a =0; a <dateRange.length; a++) {
+                        for(var dataDayTxt of data.list) {
                             if(dataDayTxt.dt_txt.includes(dateRange[a])) {
                                 console.log(dataDayTxt); 
                                 break;
