@@ -23,7 +23,8 @@ var history = {
 
 }
 
-
+//takes the city name as an argument
+//
 function appendHistory(city){
 
 }
