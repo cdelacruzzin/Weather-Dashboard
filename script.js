@@ -119,8 +119,8 @@ function searchLonLan(city_name) {
                                 var humidity = dataDayTxt.main.humidity;
 
 
-                                console.log('date from api: ', dataDayTxt.dt_txt);
-                                console.log('date from dateRange: ', dateRange[a]);
+                                console.log('date from api: ', dataDayTxt.dt_txt, 'a: ',a);
+                                console.log('date from dateRange: ', dateRange[a], 'a: ',a);
 
                                 addReports(a, datadate, emoji, temp, wind, humidity)
                                 break;
@@ -140,7 +140,7 @@ function addReports(a, datadate, emoji, temp, wind, humidity) {
     dayTemps[a].wind = wind;
     dayTemps[a].humidity = humidity;
 
-    console.log(datadate);
+    console.log(a);
 }
 
 
