@@ -35,13 +35,24 @@ btnName.addClass('historyBns');
 historyContainer.append(btnName);
 
 history[city] = btnName;
-console.log(history);
 }
 
 
 
-//checks if the 
-function searchWeather(city) {
+var API_KEY = 'd4c5beab8e001bfce3529767a56a26ea';
+function searchLonLan(city_name) {
+    var url = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_KEY}`
+
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw new Error ('error: ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
     
 }
 
@@ -52,4 +63,5 @@ searchBtn.on('click', function(event) {
     event.preventDefault();
     inputCity = searchBar.val();
     appendHistory(inputCity);
+    searchWeather(inputCity);
 });
