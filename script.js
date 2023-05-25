@@ -112,7 +112,7 @@ function searchLonLan(city_name) {
                         for (var dataDayTxt of data.list) {
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) {
 
-                                var date = dateRange[a];
+                                var datadate = dateRange[a];
                                 var emoji = '';
                                 var temp = dataDayTxt.main.temp; //switch to C
                                 var wind = dataDayTxt.wind.speed; //unit conversion meter/s to miles/hr
@@ -120,7 +120,7 @@ function searchLonLan(city_name) {
 
 
                                 // console.log(dataDayTxt);
-                                addReports(a, date, emoji, temp, wind, humidity)
+                                addReports(a, datadate, emoji, temp, wind, humidity)
                                 break;
                             }
                         }
@@ -131,14 +131,14 @@ function searchLonLan(city_name) {
         })
 }
 
-function addReports(a, date, emoji, temp, wind, humidity) {
-    dayTemps[a].date = date;
+function addReports(a, datadate, emoji, temp, wind, humidity) {
+    dayTemps[a].date = datadate;
     dayTemps[a].emoji = emoji;
     dayTemps[a].temp = temp;
     dayTemps[a].wind = wind;
     dayTemps[a].humidity = humidity;
 
-    console.log(dayTemps);
+    console.log(datadate);
 }
 
 
