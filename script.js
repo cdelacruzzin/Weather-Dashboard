@@ -16,44 +16,44 @@ var endDate = startDate.add(5, 'day');// Add 5 days to the start date to get the
 var numberOfDays = 5;
 var dateRange = [];
 
-//object for each day's weather report
-var dayTemps= {
-    dayOne: {
+//an array of objects for each day's weather report
+var dayTemps = [
+    dayOne = {
         date: "",
         emoji: "",
         temp: "",
         wind: "",
         humidity: ""
     },
-    dayTwo:{
+    dayTwo = {
         date: "",
         emoji: "",
         temp: "",
         wind: "",
         humidity: ""
     },
-    dayThree:{
+    dayThree = {
         date: "",
         emoji: "",
         temp: "",
         wind: "",
         humidity: ""
     },
-    dayFour:{
+    dayFour = {
         date: "",
         emoji: "",
         temp: "",
         wind: "",
         humidity: ""
     },
-    dayFive: {
+    dayFive = {
         date: "",
         emoji: "",
         temp: "",
         wind: "",
         humidity: ""
-    }
-}
+    }]
+
 
 
 
@@ -107,10 +107,11 @@ function searchLonLan(city_name) {
                     return response.json();
                 })
                 .then(data => {
-                    for (var a =0; a <dateRange.length; a++) {
-                        for(var dataDayTxt of data.list) {
-                            if(dataDayTxt.dt_txt.includes(dateRange[a])) {
-                                console.log(dataDayTxt); 
+
+                    for (var a = 0; a < dateRange.length; a++) {
+                        for (var dataDayTxt of data.list) {
+                            if (dataDayTxt.dt_txt.includes(dateRange[a])) {
+                                console.log(dataDayTxt);
                                 break;
                             }
                         }
