@@ -16,6 +16,44 @@ var endDate = startDate.add(5, 'day');// Add 5 days to the start date to get the
 var numberOfDays = 5;
 var dateRange = [];
 
+//object for each day's weather report
+var dayTemps= {
+    dayOne: {
+        date: "",
+        emoji: "",
+        temp: "",
+        wind: "",
+        humidity: ""
+    },
+    dayTwo:{
+        date: "",
+        emoji: "",
+        temp: "",
+        wind: "",
+        humidity: ""
+    },
+    dayThree:{
+        date: "",
+        emoji: "",
+        temp: "",
+        wind: "",
+        humidity: ""
+    },
+    dayFour:{
+        date: "",
+        emoji: "",
+        temp: "",
+        wind: "",
+        humidity: ""
+    },
+    dayFive: {
+        date: "",
+        emoji: "",
+        temp: "",
+        wind: "",
+        humidity: ""
+    }
+}
 
 
 
@@ -46,6 +84,7 @@ function appendHistory(city) {
 var API_key = 'd4c5beab8e001bfce3529767a56a26ea';
 var lon;
 var lat;
+
 function searchLonLan(city_name) {
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_key}`
 
@@ -68,9 +107,6 @@ function searchLonLan(city_name) {
                     return response.json();
                 })
                 .then(data => {
-                    // console.log(data.list[0].dt_txt);
-
-
                     for (var a =0; a <dateRange.length; a++) {
                         for(var dataDayTxt of data.list) {
                             if(dataDayTxt.dt_txt.includes(dateRange[a])) {
