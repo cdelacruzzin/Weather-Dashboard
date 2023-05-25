@@ -9,9 +9,9 @@ var inputCity = "";
 var history = {
 }
 
-//2022-08-30 15:00:00
-var currentDate = dayjs().format('YYYY-MM-DD');
-var startDate = dayjs(currentDate);
+
+var currentDate = dayjs().format('YYYY-MM-DD'); // Get the current date and format it as 'YYYY-MM-DD'
+var startDate = dayjs(currentDate); // Set the current date as the start date
 var endDate = startDate.add(5, 'day');
 var dateRange =[];
 
