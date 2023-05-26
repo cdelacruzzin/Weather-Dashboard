@@ -143,9 +143,10 @@ function setEmoji() {
 
 }
 function convertTemp(temp) {
-
+    return (temp - 273.15).toFixed(2);
 }
 function convertWind(wind) {
+    return (wind * 2.23694).toFixed(2);
 
 }
 
