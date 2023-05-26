@@ -1,6 +1,6 @@
-var searchBtn = $('#searchBtn');
-var searchBar = $('#searchBar');
-var historyContainer = $('#history');
+var searchBtn = $('#searchBtn');var searchBar = $('#searchBar'); var historyContainer = $('#history'); var curCity = $('#curCity'); var curDate = $('#curDate'); var curEmoji = $('#curEmoji'); var curtemp =('#curtemp'); var curwind =$('#curwind'); var curhumidity =$('#curhumidity');
+
+
 var inputCity = "";
 
 // will create a history container
@@ -136,8 +136,8 @@ function searchLonLan(city_name) {
                     }    
                 })
                 appendHistory(city_name);
+                console.log(history);
         })
-        
 }
 
 function setEmoji() {
@@ -150,6 +150,13 @@ function convertWind(wind) {
 
 }
 
+function showWeather() {
+    console.log(curCity);
+    curCity.text(todayWeather.name);
+
+}
+
+
 generateDateRange(startDate, numberOfDays);
 
 // onClick function that stores the value of the search bar when clicked
@@ -157,7 +164,7 @@ searchBtn.on('click', function (event) {
     event.preventDefault();
     inputCity = searchBar.val();
     searchLonLan(inputCity);
-    // appendHistory(inputCity);
+    showWeather();
 });
 
 
