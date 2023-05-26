@@ -58,10 +58,10 @@ var dayTemps = [
 
 
 function generateDateRange(startDate, numberOfDays) {
-    for (let i = 0; i <= numberOfDays; i++) {
+    let loopDays = numberOfDays+1;
+    for (let i = 1; i <= loopDays; i++) {
         dateRange.push(startDate.add(i, 'day').format('YYYY-MM-DD'));
     }
-    console.log(dateRange);
 }
 
 //takes the city name as an argument
@@ -77,9 +77,6 @@ function appendHistory(city) {
     historyContainer.append(btnName);
     history[city] = btnName;
 }
-
-
-
 //gets the longitude and latitude of the inputted city
 var API_key = 'd4c5beab8e001bfce3529767a56a26ea';
 var lon;
@@ -98,6 +95,7 @@ function searchLonLan(city_name) {
         .then(data => {
             lat = data.coord.lat; //stores logitude/latitude from data to corresponding variables
             lon = data.coord.lon;
+            console.log(data);
 
             fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
                 .then(response => {
@@ -107,41 +105,23 @@ function searchLonLan(city_name) {
                     return response.json();
                 })
                 .then(data => {
-
-                    for (var a = 0; a < dateRange.length; a++) {
+                    for (var a =-1; a <= dateRange.length; a++) {
                         for (var dataDayTxt of data.list) {
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) {
 
-                                var datadate = dateRange[a];
-                                var emoji = '';
-                                var temp = dataDayTxt.main.temp; //switch to C
-                                var wind = dataDayTxt.wind.speed; //unit conversion meter/s to miles/hr
-                                var humidity = dataDayTxt.main.humidity;
-
-
-                                console.log('date from api: ', dataDayTxt.dt_txt, 'a: ',a);
-                                console.log('date from dateRange: ', dateRange[a], 'a: ',a);
-
-                                addReports(a, datadate, emoji, temp, wind, humidity)
+                                dayTemps[a].date = dateRange[a];
+                                dayTemps[a].emoji = '';
+                                dayTemps[a].temp = dataDayTxt.main.temp; //switch to C
+                                dayTemps[a].wind = dataDayTxt.wind.speed; //unit conversion meter/s to miles/hr
+                                dayTemps[a].humidity = dataDayTxt.main.humidity;
                                 break;
                             }
                         }
                     }
-
-
                 })
         })
 }
 
-function addReports(a, datadate, emoji, temp, wind, humidity) {
-    dayTemps[a].date = datadate;
-    dayTemps[a].emoji = emoji;
-    dayTemps[a].temp = temp;
-    dayTemps[a].wind = wind;
-    dayTemps[a].humidity = humidity;
-
-    console.log(a);
-}
 
 
 
@@ -170,7 +150,20 @@ generateDateRange(startDate, numberOfDays);
 searchBtn.on('click', function (event) {
     event.preventDefault();
     inputCity = searchBar.val();
-
     searchLonLan(inputCity);
-
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
