@@ -133,9 +133,11 @@ function searchLonLan(city_name) {
                                 break;
                             }
                         }
-                    }
+                    }    
                 })
+                appendHistory(city_name);
         })
+        
 }
 
 function setEmoji() {
@@ -155,6 +157,7 @@ searchBtn.on('click', function (event) {
     event.preventDefault();
     inputCity = searchBar.val();
     searchLonLan(inputCity);
+    // appendHistory(inputCity);
 });
 
 
