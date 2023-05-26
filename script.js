@@ -107,7 +107,7 @@ function searchLonLan(city_name) {
             todayWeather.name = data.name;
             todayWeather.date = currentDate;
             todayWeather.temp = convertTemp(data.main.temp);
-            todayWeather.wind = data.wind.speed;
+            todayWeather.wind = convertWind(data.wind.speed);
             todayWeather.humidity = data.main.humidity;
             todayWeather.emoji = setEmoji();
 
@@ -142,6 +142,9 @@ function setEmoji() {
 
 }
 function convertTemp(temp) {
+
+}
+function convertWind(wind) {
 
 }
 
