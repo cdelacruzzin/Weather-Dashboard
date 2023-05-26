@@ -1,4 +1,4 @@
-var searchBtn = $('#searchBtn');var searchBar = $('#searchBar'); var historyContainer = $('#history'); var curCity = $('#curCity'); var curDate = $('#curDate'); var curEmoji = $('#curEmoji'); var curtemp =('#curtemp'); var curwind =$('#curwind'); var curhumidity =$('#curhumidity');
+var searchBtn = $('#searchBtn');var searchBar = $('#searchBar'); var historyContainer = $('#history'); var curCity = $('#curCity'); var curDate = $('#curDate'); var curEmoji = $('#curEmoji'); var curtemp =$('#curtemp'); var curwind =$('#curwind'); var curhumidity =$('#curhumidity');
 
 
 var inputCity = "";
@@ -111,7 +111,7 @@ function searchLonLan(city_name) {
             todayWeather.humidity = data.main.humidity;
             todayWeather.emoji = setEmoji();
 
-            console.log(todayWeather);
+            showWeather(todayWeather.name, todayWeather.date, todayWeather.temp, todayWeather.wind, todayWeather.humidity, todayWeather.emoji)
 
             fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
                 .then(response => {
@@ -136,7 +136,6 @@ function searchLonLan(city_name) {
                     }    
                 })
                 appendHistory(city_name);
-                console.log(history);
         })
 }
 
@@ -150,9 +149,15 @@ function convertWind(wind) {
 
 }
 
-function showWeather() {
-    console.log(curCity);
-    curCity.text(todayWeather.name);
+// showWeather(todayWeather.name, todayWeather.date, todayWeather.temp, todayWeather.wind, todayWeather.humidity, todayWeather.emoji)
+function showWeather(name, date, temp, wind, humidity, emoji) {
+    curCity.text(name); 
+    curDate.text(date);
+    curtemp.text(temp);
+    curwind.text(wind);
+    curhumidity.text(humidity);
+
+    console.log(temp);
 
 }
 
