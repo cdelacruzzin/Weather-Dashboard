@@ -105,11 +105,11 @@ function searchLonLan(city_name) {
                     return response.json();
                 })
                 .then(data => {
-                    for (var a =-1; a <= dateRange.length; a++) {
-                        for (var dataDayTxt of data.list) {
-                            if (dataDayTxt.dt_txt.includes(dateRange[a])) {
+                    for (var a =-1; a <= dateRange.length; a++) { //iterates through the dateRange array (for the 5 days). 
+                        for (var dataDayTxt of data.list) { //then iterates through all elements of the data list.
+                            if (dataDayTxt.dt_txt.includes(dateRange[a])) { //checks if the element in the data list is the same day as the day in dateRange
 
-                                dayTemps[a].date = dateRange[a];
+                                dayTemps[a].date = dateRange[a];//assigns the values of the weather to the day in the dateRange
                                 dayTemps[a].emoji = '';
                                 dayTemps[a].temp = dataDayTxt.main.temp; //switch to C
                                 dayTemps[a].wind = dataDayTxt.wind.speed; //unit conversion meter/s to miles/hr
