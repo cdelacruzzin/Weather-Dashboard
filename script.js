@@ -54,6 +54,13 @@ var dayTemps = [
         humidity: ""
     }]
 
+    var todayWeather = {
+        date: "",
+        emoji: "",
+        temp: "",
+        wind: "",
+        humidity: ""
+    }
 
 
 
@@ -95,7 +102,6 @@ function searchLonLan(city_name) {
         .then(data => {
             lat = data.coord.lat; //stores logitude/latitude from data to corresponding variables
             lon = data.coord.lon;
-            console.log(data);
 
             fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
                 .then(response => {
@@ -121,29 +127,6 @@ function searchLonLan(city_name) {
                 })
         })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 generateDateRange(startDate, numberOfDays);
 
 // onClick function that stores the value of the search bar when clicked
