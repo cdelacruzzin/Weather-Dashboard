@@ -109,7 +109,9 @@ function searchLonLan(city_name) {
             todayWeather.temp = convertTemp(data.main.temp);
             todayWeather.wind = convertWind(data.wind.speed);
             todayWeather.humidity = data.main.humidity;
-            todayWeather.emoji = setEmoji();
+            todayWeather.emoji = setEmoji(city_name);
+
+            console.log(data);
 
             showWeather(todayWeather.name, todayWeather.date, todayWeather.temp, todayWeather.wind, todayWeather.humidity, todayWeather.emoji)
 
@@ -139,7 +141,18 @@ function searchLonLan(city_name) {
         })
 }
 
-function setEmoji() {
+function setEmoji(city) {
+    var url = `https://api.openweathermap.org/data/2.5/weather?q=$${city}`
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Error: ', response.status);
+        }
+        return response.json();
+    })
+    .then (data => {
+        console.log(data);
+    })
 
 }
 function convertTemp(temp) {
@@ -157,8 +170,6 @@ function showWeather(name, date, temp, wind, humidity, emoji) {
     curtemp.text(temp);
     curwind.text(wind);
     curhumidity.text(humidity);
-
-    console.log(temp);
 
 }
 
