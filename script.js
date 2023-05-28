@@ -1,4 +1,4 @@
-var searchBtn = $('#searchBtn');var searchBar = $('#searchBar'); var historyContainer = $('#history'); var curCity = $('#curCity'); var curDate = $('#curDate'); var curEmoji = $('#curEmoji'); var curtemp =$('#curtemp'); var curwind =$('#curwind'); var curhumidity =$('#curhumidity');
+var searchBtn = $('#searchBtn'); var searchBar = $('#searchBar'); var historyContainer = $('#history'); var curCity = $('#curCity'); var curDate = $('#curDate'); var curEmoji = $('#curEmoji'); var curtemp = $('#curtemp'); var curwind = $('#curwind'); var curhumidity = $('#curhumidity');
 
 
 var inputCity = "";
@@ -54,19 +54,19 @@ var dayTemps = [
         humidity: ""
     }]
 
-    var todayWeather = {
-        name: "", 
-        date: "",
-        emoji: "",
-        temp: "",
-        wind: "",
-        humidity: ""
-    }
+var todayWeather = {
+    name: "",
+    date: "",
+    emoji: "",
+    temp: "",
+    wind: "",
+    humidity: ""
+}
 
 
 
 function generateDateRange(startDate, numberOfDays) {
-    let loopDays = numberOfDays+1;
+    let loopDays = numberOfDays + 1;
     for (let i = 1; i <= loopDays; i++) {
         dateRange.push(startDate.add(i, 'day').format('YYYY-MM-DD'));
     }
@@ -122,26 +122,27 @@ function searchLonLan(city_name) {
                     return response.json();
                 })
                 .then(data => {
-                    
-                    for (var a =0; a <= dateRange.length; a++) { //iterates through the dateRange array (for the 5 days). 
+
+                    for (var a = 0; a <= dateRange.length; a++) { //iterates through the dateRange array (for the 5 days). 
                         for (var dataDayTxt of data.list) { //then iterates through all elements of the data list.
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) { //checks if the element in the data list is the same day as the day in dateRange
 
                                 dayTemps[a].date = dateRange[a];//assigns the values of the weather to the day in the dateRange
                                 dayTemps[a].emoji = setEmoji(dataDayTxt.weather[0].icon)
-                                dayTemps[a].temp = dataDayTxt.main.temp; //switch to C
-                                dayTemps[a].wind = dataDayTxt.wind.speed; //unit conversion meter/s to miles/hr
+                                dayTemps[a].temp = convertTemp(dataDayTxt.main.temp); //switch to C
+                                dayTemps[a].wind = convertWind(dataDayTxt.wind.speed); //unit conversion meter/s to miles/hr
                                 dayTemps[a].humidity = dataDayTxt.main.humidity;
                                 break;
                             }
                         }
-                        // console.log(dayTemps[a]);
                         localStorage.setItem('dayTemps', JSON.stringify(dayTemps));
-                    } 
-                    
+                    }
                 })
-                appendHistory(city_name);
+                showWeather();
+            appendHistory(city_name);
         })
+
+    
 }
 
 function setEmoji(icon) {
@@ -155,22 +156,51 @@ function convertWind(wind) {
     return (wind * 2.23694).toFixed(2);
 }
 
-// showWeather(todayWeather.name, todayWeather.date, todayWeather.temp, todayWeather.wind, todayWeather.humidity, todayWeather.emoji)
 function showWeather() {
+    curCity.text(todayWeather.name);
+    curDate.text(todayWeather.date);
+    curtemp.text(todayWeather.temp);
+    curwind.text(todayWeather.wind);
+    curhumidity.text(todayWeather.humidity);
+    curEmoji.attr('src', todayWeather.emoji);
 
-    var savedDayTemps = JSON.parse(localStorage.getItem('dayTemps'));
-    var savedTodayWeather = JSON.parse(localStorage.getItem('todayWeather'));
     
 
-    curCity.text(savedTodayWeather.name); 
+    for (var a = 0; a < dayTemps.length; a++) {
+        var count = a + 1;
+        var t = $(`#d${count}Temp`);
+        t.text(dayTemps[a].temp);
+
+        var t = $(`#d${count}Day`);
+        t.text(dayTemps[a].date);
+
+        var t = $(`#d${count}Emoji`);
+        t.text(dayTemps[a].emoji);
+
+        var t = $(`#d${count}Wind`);
+        t.text(dayTemps[a].wind);
+
+        var t = $(`#d${count}Humidity`);
+        t.text(dayTemps[a].humidity);
+
+        console.log(dayTemps);
+    }
+}
+
+//prints the last searched weather report on reload
+function showLastWeather() {
+    var savedDayTemps = JSON.parse(localStorage.getItem('dayTemps'));
+    var savedTodayWeather = JSON.parse(localStorage.getItem('todayWeather'));
+
+    curCity.text(savedTodayWeather.name);
     curDate.text(savedTodayWeather.date);
     curtemp.text(savedTodayWeather.temp);
     curwind.text(savedTodayWeather.wind);
     curhumidity.text(savedTodayWeather.humidity);
     curEmoji.attr('src', savedTodayWeather.emoji);
 
-    for(var a = 0; a < savedDayTemps.length; a++) {
-        var count = a+1;
+    for (var a = 0; a < savedDayTemps.length; a++) {
+        var count = a + 1;
         var t = $(`#d${count}Temp`);
         t.text(savedDayTemps[a].temp);
 
@@ -193,14 +223,13 @@ function showWeather() {
 generateDateRange(startDate, numberOfDays);
 
 // onClick function that stores the value of the search bar when clicked
+
+showLastWeather();
+
 searchBtn.on('click', function (event) {
     event.preventDefault();
     inputCity = searchBar.val();
     searchLonLan(inputCity);
-    showWeather();
 });
-// showWeather();
-
-
 
 
