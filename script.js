@@ -140,7 +140,6 @@ function searchLonLan(city_name) {
                     } 
                     
                 })
-                
                 appendHistory(city_name);
         })
 }
@@ -170,14 +169,23 @@ function showWeather() {
     curhumidity.text(savedTodayWeather.humidity);
     curEmoji.attr('src', savedTodayWeather.emoji);
 
-    // d3Temp
     for(var a = 0; a < savedDayTemps.length; a++) {
         var count = a+1;
         var t = $(`#d${count}Temp`);
         t.text(savedDayTemps[a].temp);
-        
+
+        var t = $(`#d${count}Day`);
+        t.text(savedDayTemps[a].date);
+
+        var t = $(`#d${count}Emoji`);
+        t.text(savedDayTemps[a].emoji);
+
+        var t = $(`#d${count}Wind`);
+        t.text(savedDayTemps[a].wind);
+
+        var t = $(`#d${count}Humidity`);
+        t.text(savedDayTemps[a].humidity);
     }
-    var e = $('#d1Temp');
 
 }
 
@@ -191,6 +199,7 @@ searchBtn.on('click', function (event) {
     searchLonLan(inputCity);
     showWeather();
 });
+// showWeather();
 
 
 
