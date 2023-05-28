@@ -112,8 +112,8 @@ function searchLonLan(city_name) {
             todayWeather.emoji = setEmoji(data.weather[0].icon);
 
 
-            showWeather(todayWeather.name, todayWeather.date, todayWeather.temp, todayWeather.wind, todayWeather.humidity, todayWeather.emoji)
-
+            // showWeather(todayWeather.name, todayWeather.date, todayWeather.temp, todayWeather.wind, todayWeather.humidity, todayWeather.emoji)
+            localStorage.setItem('todayWeather', JSON.stringify(todayWeather));
             fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
                 .then(response => {
                     if (!response.ok) {
@@ -128,15 +128,17 @@ function searchLonLan(city_name) {
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) { //checks if the element in the data list is the same day as the day in dateRange
 
                                 dayTemps[a].date = dateRange[a];//assigns the values of the weather to the day in the dateRange
-                                dayTemps[a].emoji = '';
+                                dayTemps[a].emoji = setEmoji(dataDayTxt.weather[0].icon)
                                 dayTemps[a].temp = dataDayTxt.main.temp; //switch to C
                                 dayTemps[a].wind = dataDayTxt.wind.speed; //unit conversion meter/s to miles/hr
                                 dayTemps[a].humidity = dataDayTxt.main.humidity;
                                 break;
                             }
                         }
+                        // console.log(dayTemps[a]);
+                        localStorage.setItem('dayTemps', JSON.stringify(dayTemps));
                     } 
-                     
+                    
                 })
                 
                 appendHistory(city_name);
@@ -152,17 +154,24 @@ function convertTemp(temp) {
 }
 function convertWind(wind) {
     return (wind * 2.23694).toFixed(2);
-
 }
 
 // showWeather(todayWeather.name, todayWeather.date, todayWeather.temp, todayWeather.wind, todayWeather.humidity, todayWeather.emoji)
-function showWeather(name, date, temp, wind, humidity, emoji) {
-    curCity.text(name); 
-    curDate.text(date);
-    curtemp.text(temp);
-    curwind.text(wind);
-    curhumidity.text(humidity);
-    curEmoji.attr('src', emoji);
+function showWeather() {
+
+    var savedDayTemps = JSON.parse(localStorage.getItem('dayTemps'));
+    var savedTodayWeather = JSON.parse(localStorage.getItem('todayWeather'));
+    console.log(savedTodayWeather);
+
+    curCity.text(savedTodayWeather.name); 
+    curDate.text(savedTodayWeather.date);
+    curtemp.text(savedTodayWeather.temp);
+    curwind.text(savedTodayWeather.wind);
+    curhumidity.text(savedTodayWeather.humidity);
+    curEmoji.attr('src', savedTodayWeather.emoji);
+
+
+
 
 }
 
