@@ -161,7 +161,7 @@ function showWeather() {
 
     var savedDayTemps = JSON.parse(localStorage.getItem('dayTemps'));
     var savedTodayWeather = JSON.parse(localStorage.getItem('todayWeather'));
-    console.log(savedTodayWeather);
+    
 
     curCity.text(savedTodayWeather.name); 
     curDate.text(savedTodayWeather.date);
@@ -170,8 +170,14 @@ function showWeather() {
     curhumidity.text(savedTodayWeather.humidity);
     curEmoji.attr('src', savedTodayWeather.emoji);
 
-
-
+    // d3Temp
+    for(var a = 0; a < savedDayTemps.length; a++) {
+        var count = a+1;
+        var t = $(`#d${count}Temp`);
+        t.text(savedDayTemps[a].temp);
+        
+    }
+    var e = $('#d1Temp');
 
 }
 
