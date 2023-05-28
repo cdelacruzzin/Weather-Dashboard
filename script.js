@@ -109,9 +109,8 @@ function searchLonLan(city_name) {
             todayWeather.temp = convertTemp(data.main.temp);
             todayWeather.wind = convertWind(data.wind.speed);
             todayWeather.humidity = data.main.humidity;
-            todayWeather.emoji = setEmoji(city_name);
+            todayWeather.emoji = setEmoji(data.weather[0].icon);
 
-            console.log(data);
 
             showWeather(todayWeather.name, todayWeather.date, todayWeather.temp, todayWeather.wind, todayWeather.humidity, todayWeather.emoji)
 
@@ -123,7 +122,8 @@ function searchLonLan(city_name) {
                     return response.json();
                 })
                 .then(data => {
-                    for (var a =-1; a <= dateRange.length; a++) { //iterates through the dateRange array (for the 5 days). 
+                    
+                    for (var a =0; a <= dateRange.length; a++) { //iterates through the dateRange array (for the 5 days). 
                         for (var dataDayTxt of data.list) { //then iterates through all elements of the data list.
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) { //checks if the element in the data list is the same day as the day in dateRange
 
@@ -135,25 +135,17 @@ function searchLonLan(city_name) {
                                 break;
                             }
                         }
-                    }    
+                    } 
+                     
                 })
+                
                 appendHistory(city_name);
         })
 }
 
-function setEmoji(city) {
-    var url = `https://api.openweathermap.org/data/2.5/weather?q=$${city}`
-    fetch(url)
-    .then(response => {
-        if(!response.ok) {
-            throw new Error('Error: ', response.status);
-        }
-        return response.json();
-    })
-    .then (data => {
-        console.log(data);
-    })
-
+function setEmoji(icon) {
+    var url = `https://openweathermap.org/img/wn/${icon}@2x.png`
+    return url;
 }
 function convertTemp(temp) {
     return (temp - 273.15).toFixed(2);
@@ -170,6 +162,7 @@ function showWeather(name, date, temp, wind, humidity, emoji) {
     curtemp.text(temp);
     curwind.text(wind);
     curhumidity.text(humidity);
+    curEmoji.attr('src', emoji);
 
 }
 
@@ -187,20 +180,3 @@ searchBtn.on('click', function (event) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-var curCity = $('curCity');
-var curDate = $('curDate');
-var curTemp = $('curTemp');
-var curwind = $('curwind');
-var curHumidity = $('curHumidity');
