@@ -111,10 +111,8 @@ function searchLonLan(city_name) {
             todayWeather.humidity = data.main.humidity;
             todayWeather.emoji = setEmoji(data.weather[0].icon);
 
-
-            // showWeather(todayWeather.name, todayWeather.date, todayWeather.temp, todayWeather.wind, todayWeather.humidity, todayWeather.emoji)
             localStorage.setItem('todayWeather', JSON.stringify(todayWeather));
-            fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
+             fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('error: ' + response.status); //throws an error if city does not exist
@@ -123,7 +121,7 @@ function searchLonLan(city_name) {
                 })
                 .then(data => {
 
-                    for (var a = 0; a <= dateRange.length; a++) { //iterates through the dateRange array (for the 5 days). 
+                    for (var a = -1; a <= dateRange.length; a++) { //iterates through the dateRange array (for the 5 days). 
                         for (var dataDayTxt of data.list) { //then iterates through all elements of the data list.
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) { //checks if the element in the data list is the same day as the day in dateRange
 
@@ -142,9 +140,8 @@ function searchLonLan(city_name) {
                 showWeather();
             appendHistory(city_name);
         })
-
-    
 }
+
 
 function setEmoji(icon) {
     var url = `https://openweathermap.org/img/wn/${icon}@2x.png`
@@ -156,7 +153,6 @@ function convertTemp(temp) {
 function convertWind(wind) {
     return (wind * 2.23694).toFixed(2);
 }
-
 function showWeather() {
     curCity.text(todayWeather.name);
     curDate.text(todayWeather.date);
@@ -183,8 +179,6 @@ function showWeather() {
 
         var t = $(`#d${count}Humidity`);
         t.text(dayTemps[a].humidity);
-
-        
     }
 }
 
@@ -224,13 +218,10 @@ function showLastWeather() {
 generateDateRange(startDate, numberOfDays);
 
 // onClick function that stores the value of the search bar when clicked
-
-showLastWeather();
-
 searchBtn.on('click', function (event) {
     event.preventDefault();
     inputCity = searchBar.val();
     searchLonLan(inputCity);
 });
 
-
+// showLastWeather();
