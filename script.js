@@ -122,12 +122,9 @@ function searchLonLan(city_name) {
                     return response.json();
                 })
                 .then(data => {
-
                     for (var a = -1; a < dateRange.length - 1; a++) { //iterates through the dateRange array (for the 5 days). 
                         for (var dataDayTxt of data.list) { //then iterates through all elements of the data list.
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) { //checks if the element in the data list is the same day as the day in dateRange
-
-                                
                                 dayTemps[a].date = dateRange[a];//assigns the values of the weather to the day in the dateRange
                                 dayTemps[a].emoji = setEmoji(dataDayTxt.weather[0].icon)
                                 dayTemps[a].temp = convertTemp(dataDayTxt.main.temp); //switch to C
@@ -136,11 +133,9 @@ function searchLonLan(city_name) {
                                 break;
                             }
                         }
-                        localStorage.setItem('dayTemps', JSON.stringify(dayTemps));
                     }
                     showWeather();
                 })
-                
             appendHistory(city_name);
         })
         
@@ -188,34 +183,7 @@ function showWeather() {
 
 //prints the last searched weather report on reloads
 function showLastWeather() {
-    var savedDayTemps = JSON.parse(localStorage.getItem('dayTemps'));
     var savedTodayWeather = JSON.parse(localStorage.getItem('todayWeather'));
-
-    curCity.text(savedTodayWeather.name);
-    curDate.text(savedTodayWeather.date);
-    curtemp.text(savedTodayWeather.temp);
-    curwind.text(savedTodayWeather.wind);
-    curhumidity.text(savedTodayWeather.humidity);
-    curEmoji.attr('src', savedTodayWeather.emoji);
-
-    for (var a = 0; a < savedDayTemps.length; a++) {
-        var count = a + 1;
-        var t = $(`#d${count}Temp`);
-        t.text(savedDayTemps[a].temp);
-
-        var t = $(`#d${count}Day`);
-        t.text(savedDayTemps[a].date);
-
-        var t = $(`#d${count}Emoji`);
-        t.text(savedDayTemps[a].emoji);
-
-        var t = $(`#d${count}Wind`);
-        t.text(savedDayTemps[a].wind);
-
-        var t = $(`#d${count}Humidity`);
-        t.text(savedDayTemps[a].humidity);
-    }
-
 }
 
 
