@@ -112,6 +112,8 @@ function searchLonLan(city_name) {
             todayWeather.emoji = setEmoji(data.weather[0].icon);
 
             localStorage.setItem('todayWeather', JSON.stringify(todayWeather));
+
+
              fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
                 .then(response => {
                     if (!response.ok) {
@@ -121,7 +123,7 @@ function searchLonLan(city_name) {
                 })
                 .then(data => {
 
-                    for (var a = -1; a <= dateRange.length; a++) { //iterates through the dateRange array (for the 5 days). 
+                    for (var a = -1; a < dateRange.length - 1; a++) { //iterates through the dateRange array (for the 5 days). 
                         for (var dataDayTxt of data.list) { //then iterates through all elements of the data list.
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) { //checks if the element in the data list is the same day as the day in dateRange
 
@@ -136,10 +138,12 @@ function searchLonLan(city_name) {
                         }
                         localStorage.setItem('dayTemps', JSON.stringify(dayTemps));
                     }
+                    showWeather();
                 })
-                showWeather();
+                
             appendHistory(city_name);
         })
+        
 }
 
 
