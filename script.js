@@ -127,6 +127,7 @@ function searchLonLan(city_name) {
                         for (var dataDayTxt of data.list) { //then iterates through all elements of the data list.
                             if (dataDayTxt.dt_txt.includes(dateRange[a])) { //checks if the element in the data list is the same day as the day in dateRange
 
+                                
                                 dayTemps[a].date = dateRange[a];//assigns the values of the weather to the day in the dateRange
                                 dayTemps[a].emoji = setEmoji(dataDayTxt.weather[0].icon)
                                 dayTemps[a].temp = convertTemp(dataDayTxt.main.temp); //switch to C
@@ -164,12 +165,12 @@ function showWeather() {
     curhumidity.text(todayWeather.humidity);
     curEmoji.attr('src', todayWeather.emoji);
 
-    
-
+    console.log(dayTemps);
     for (var a = 0; a < dayTemps.length; a++) {
         var count = a + 1;
         var t = $(`#d${count}Temp`);
         t.text(dayTemps[a].temp);
+        console.log(dayTemps[0]);
 
         var t = $(`#d${count}Day`);
         t.text(dayTemps[a].date);
@@ -183,7 +184,7 @@ function showWeather() {
         var t = $(`#d${count}Humidity`);
         t.text(dayTemps[a].humidity);
 
-        console.log(dayTemps);
+        
     }
 }
 
