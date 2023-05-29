@@ -146,12 +146,14 @@ function setEmoji(icon) {
     var url = `https://openweathermap.org/img/wn/${icon}@2x.png`
     return url;
 }
-function convertTemp(temp) {
+function convertTemp(temp) {    //unit conversion
     return (temp - 273.15).toFixed(2);
 }
-function convertWind(wind) {
+function convertWind(wind) {     //unit conversio
     return (wind * 2.23694).toFixed(2);
 }
+
+//prints the inputted city's weather report
 function showWeather() {
     curCity.text(todayWeather.name);
     curDate.text(todayWeather.date);
@@ -160,12 +162,10 @@ function showWeather() {
     curhumidity.text(todayWeather.humidity);
     curEmoji.attr('src', todayWeather.emoji);
 
-    console.log(dayTemps);
     for (var a = 0; a < dayTemps.length; a++) {
         var count = a + 1;
         var t = $(`#d${count}Temp`);
         t.text(dayTemps[a].temp);
-        console.log(dayTemps[0]);
 
         var t = $(`#d${count}Day`);
         t.text(dayTemps[a].date);
@@ -184,16 +184,22 @@ function showWeather() {
 //prints the last searched weather report on reloads
 function showLastWeather() {
     var savedTodayWeather = JSON.parse(localStorage.getItem('todayWeather'));
+    //if there is data stored in local storage, it will show the weather report for the last saved city
+    if((savedTodayWeather !== null)) {
+        searchLonLan(savedTodayWeather.name);
+        console.log(savedTodayWeather.name);
+    } else {
+        //if there is nothing in the local storage, will hide html
+        console.log('bye');
+    }
 }
 
-
 generateDateRange(startDate, numberOfDays);
-
 // onClick function that stores the value of the search bar when clicked
 searchBtn.on('click', function (event) {
     event.preventDefault();
     inputCity = searchBar.val();
     searchLonLan(inputCity);
 });
-
-// showLastWeather();
+// localStorage.clear();
+showLastWeather();
