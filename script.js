@@ -188,7 +188,7 @@ function showWeather() {
     }
 }
 
-//prints the last searched weather report on reload
+//prints the last searched weather report on reloads
 function showLastWeather() {
     var savedDayTemps = JSON.parse(localStorage.getItem('dayTemps'));
     var savedTodayWeather = JSON.parse(localStorage.getItem('todayWeather'));
