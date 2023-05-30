@@ -1,14 +1,8 @@
 var searchBtn = $('#searchBtn'); var searchBar = $('#searchBar'); var historyContainer = $('#history'); var curCity = $('#curCity'); var curDate = $('#curDate'); var curEmoji = $('#curEmoji'); var curtemp = $('#curtemp'); var curwind = $('#curwind'); var curhumidity = $('#curhumidity');
-
-
 var inputCity = "";
-
 // will create a history container
-// elements will be stored in an object
-//the key will be the city name, the value will be a function
+// elements will be stored in an array
 var history = [];
-
-
 var currentDate = dayjs().format('YYYY-MM-DD'); // Get the current date and format it as 'YYYY-MM-DD'
 var startDate = dayjs(currentDate); // Set the current date as the start date
 var endDate = startDate.add(5, 'day');// Add 5 days to the start date to get the end date
@@ -62,8 +56,6 @@ var todayWeather = {
     humidity: ""
 }
 
-
-
 function generateDateRange(startDate, numberOfDays) {
     let loopDays = numberOfDays + 1;
     for (let i = 1; i <= loopDays; i++) {
@@ -85,7 +77,6 @@ function appendHistory(city) {
 
     localStorage.setItem('history', JSON.stringify(history)); // stores history object to JSON
 }
-
 
 //gets the longitude and latitude of the inputted city
 var API_key = 'd4c5beab8e001bfce3529767a56a26ea';
@@ -141,8 +132,8 @@ function searchLonLan(city_name) {
 
 
 function setEmoji(icon) {
-    var url = `https://openweathermap.org/img/wn/${icon}@2x.png`
-    return url;
+    var url = `https://openweathermap.org/img/wn/${icon}@2x.png`;   //takes the icon code, and uses the api url with the icon in arguement    
+    return url;q
 }
 function convertTemp(temp) {    //unit conversion
     return (temp - 273.15).toFixed(2);
@@ -179,12 +170,8 @@ function showWeather() {
     }
 }
 
-
-
 $(document).ready(function () {
-
     var history = JSON.parse(localStorage.getItem('history')) || {};    // Load history from localStorage
-
     //prints the last searched weather report on reloads
     var savedTodayWeather = JSON.parse(localStorage.getItem('todayWeather'));
     //if there is data stored in local storage, it will show the weather report for the last saved city
@@ -200,7 +187,6 @@ $(document).ready(function () {
         }
     }
 });
-
 generateDateRange(startDate, numberOfDays);
 // onClick function that stores the value of the search bar when clicked
 searchBtn.on('click', function (event) {
@@ -209,15 +195,8 @@ searchBtn.on('click', function (event) {
     searchLonLan(inputCity);
     appendHistory(inputCity);
 })
-
-
 $(document).on('click', 'button', function(event) {
     if ($(event.target).attr('class') === 'historyBns') {   //checks if the clicked element has a class of 'historyBns
         searchLonLan($(event.target).val());       //calls the searchLonLan function and passes the clicked button's value (city name) as the parameter
     }
 });
-
-
-
-
-
