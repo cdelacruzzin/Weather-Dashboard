@@ -133,7 +133,7 @@ function searchLonLan(city_name) {
 
 function setEmoji(icon) {
     var url = `https://openweathermap.org/img/wn/${icon}@2x.png`;   //takes the icon code, and uses the api url with the icon in arguement    
-    return url;q
+    return url; q
 }
 function convertTemp(temp) {    //unit conversion
     return (temp - 273.15).toFixed(2);
@@ -177,8 +177,13 @@ $(document).ready(function () {
     //if there is data stored in local storage, it will show the weather report for the last saved city
     if ((savedTodayWeather !== null)) {
         searchLonLan(savedTodayWeather.name);
+
+        $('aside').addClass('col-md-3');
+
     } else {
-        //if there is nothing in the local storage, will hide html
+        //if there is nothing in the local storage, will hide html col-md-3
+        $('section').hide();
+
     }
     // Recreate all buttons from history
     for (var city in history) {
@@ -192,10 +197,15 @@ generateDateRange(startDate, numberOfDays);
 searchBtn.on('click', function (event) {
     event.preventDefault();
     inputCity = searchBar.val();
-    searchLonLan(inputCity);
-    appendHistory(inputCity);
+    if (inputCity !== "") {
+        searchLonLan(inputCity);
+        appendHistory(inputCity);
+        $('section').show();
+        $('aside').addClass('col-md-3');
+        searchBar.val('');
+    }    
 })
-$(document).on('click', 'button', function(event) {
+$(document).on('click', 'button', function (event) {
     if ($(event.target).attr('class') === 'historyBns') {   //checks if the clicked element has a class of 'historyBns
         searchLonLan($(event.target).val());       //calls the searchLonLan function and passes the clicked button's value (city name) as the parameter
     }
