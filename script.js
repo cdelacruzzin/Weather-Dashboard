@@ -136,7 +136,6 @@ function searchLonLan(city_name) {
                     }
                     showWeather();
                 })
-            appendHistory(city_name);
         })
 }
 
@@ -209,6 +208,7 @@ searchBtn.on('click', function (event) {
     event.preventDefault();
     inputCity = searchBar.val();
     searchLonLan(inputCity);
+    appendHistory(inputCity);
 });
 showLastWeather();
 
