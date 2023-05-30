@@ -113,8 +113,8 @@ function searchLonLan(city_name) {
             todayWeather.emoji = setEmoji(data.weather[0].icon);
 
             localStorage.setItem('todayWeather', JSON.stringify(todayWeather));
-             fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
-             
+            fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
+
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('error: ' + response.status); //throws an error if city does not exist
@@ -179,21 +179,20 @@ function showWeather() {
     }
 }
 
-//prints the last searched weather report on reloads
-function showLastWeather() {
+
+
+$(document).ready(function () {
+
+    var history = JSON.parse(localStorage.getItem('history')) || {};    // Load history from localStorage
+
+    //prints the last searched weather report on reloads
     var savedTodayWeather = JSON.parse(localStorage.getItem('todayWeather'));
     //if there is data stored in local storage, it will show the weather report for the last saved city
-    if((savedTodayWeather !== null)) {
+    if ((savedTodayWeather !== null)) {
         searchLonLan(savedTodayWeather.name);
     } else {
         //if there is nothing in the local storage, will hide html
     }
-}
-
-$(document).ready(function() {
-    
-    var history = JSON.parse(localStorage.getItem('history')) || {};    // Load history from localStorage
-
     // Recreate all buttons from history
     for (var city in history) {
         if (history.hasOwnProperty(city)) {
@@ -209,8 +208,16 @@ searchBtn.on('click', function (event) {
     inputCity = searchBar.val();
     searchLonLan(inputCity);
     appendHistory(inputCity);
+})
+
+
+$(document).on('click', 'button', function(event) {
+    if ($(event.target).attr('class') === 'historyBns') {
+        console.log('hi')
+    }
 });
-showLastWeather();
+
+
 
 
 
