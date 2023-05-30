@@ -85,15 +85,18 @@ function appendHistory(city) {
     historyContainer.append(btnName);
     history[city] = btnName;
 }
+
+
 //gets the longitude and latitude of the inputted city
 var API_key = 'd4c5beab8e001bfce3529767a56a26ea';
 var lon;
 var lat;
 
 function searchLonLan(city_name) {
-    var url = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_key}`
+    var urls = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_key}`
+    var savedCity = localStorage.setItem('savedcity', JSON.stringify(urls));
 
-    fetch(url)
+    fetch(urls)
         .then(response => {
             if (!response.ok) {
                 throw new Error('error: ' + response.status); //throws an error if city does not exist
@@ -113,8 +116,9 @@ function searchLonLan(city_name) {
 
             localStorage.setItem('todayWeather', JSON.stringify(todayWeather));
 
-
+            var savedlatLon = localStorage.setItem('savedLatLon', JSON.stringify(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`));
              fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
+             
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('error: ' + response.status); //throws an error if city does not exist
@@ -138,12 +142,12 @@ function searchLonLan(city_name) {
                 })
             appendHistory(city_name);
         })
-        
 }
 
 
 function setEmoji(icon) {
     var url = `https://openweathermap.org/img/wn/${icon}@2x.png`
+    var savedIcon = localStorage.setItem('savedIcon', JSON.stringify(url));
     return url;
 }
 function convertTemp(temp) {    //unit conversion
@@ -187,10 +191,8 @@ function showLastWeather() {
     //if there is data stored in local storage, it will show the weather report for the last saved city
     if((savedTodayWeather !== null)) {
         searchLonLan(savedTodayWeather.name);
-        console.log(savedTodayWeather.name);
     } else {
         //if there is nothing in the local storage, will hide html
-        console.log('bye');
     }
 }
 
@@ -203,3 +205,4 @@ searchBtn.on('click', function (event) {
 });
 // localStorage.clear();
 showLastWeather();
+console.log(history);
