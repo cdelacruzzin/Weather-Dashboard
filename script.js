@@ -6,8 +6,7 @@ var inputCity = "";
 // will create a history container
 // elements will be stored in an object
 //the key will be the city name, the value will be a function
-var history = {
-}
+var history = [];
 
 
 var currentDate = dayjs().format('YYYY-MM-DD'); // Get the current date and format it as 'YYYY-MM-DD'
@@ -76,14 +75,15 @@ function generateDateRange(startDate, numberOfDays) {
 // dynamically creates a new property for the history object 
 // the key will be the city name, the value will be a button
 //creates a button element with the city name as its text and value, and a class of 'historyBtns'
-//all buttons will be in the same class to share an onClick functionality
 function appendHistory(city) {
     var btnName = $('<button>');
     btnName.text(city);
     btnName.val(city);
     btnName.addClass('historyBns');
     historyContainer.append(btnName);
-    history[city] = btnName;
+    history[city] = city;   //stores city name
+
+    localStorage.setItem('history', JSON.stringify(history)); // stores history object to JSON
 }
 
 
@@ -93,9 +93,7 @@ var lon;
 var lat;
 
 function searchLonLan(city_name) {
-    var urls = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_key}`
-    var savedCity = localStorage.setItem('savedcity', JSON.stringify(urls));
-
+    var urls = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_key}`;
     fetch(urls)
         .then(response => {
             if (!response.ok) {
@@ -115,8 +113,6 @@ function searchLonLan(city_name) {
             todayWeather.emoji = setEmoji(data.weather[0].icon);
 
             localStorage.setItem('todayWeather', JSON.stringify(todayWeather));
-
-            var savedlatLon = localStorage.setItem('savedLatLon', JSON.stringify(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`));
              fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`)
              
                 .then(response => {
@@ -147,7 +143,6 @@ function searchLonLan(city_name) {
 
 function setEmoji(icon) {
     var url = `https://openweathermap.org/img/wn/${icon}@2x.png`
-    var savedIcon = localStorage.setItem('savedIcon', JSON.stringify(url));
     return url;
 }
 function convertTemp(temp) {    //unit conversion
@@ -196,6 +191,18 @@ function showLastWeather() {
     }
 }
 
+$(document).ready(function() {
+    
+    var history = JSON.parse(localStorage.getItem('history')) || {};    // Load history from localStorage
+
+    // Recreate all buttons from history
+    for (var city in history) {
+        if (history.hasOwnProperty(city)) {
+            appendHistory(city);
+        }
+    }
+});
+
 generateDateRange(startDate, numberOfDays);
 // onClick function that stores the value of the search bar when clicked
 searchBtn.on('click', function (event) {
@@ -203,6 +210,7 @@ searchBtn.on('click', function (event) {
     inputCity = searchBar.val();
     searchLonLan(inputCity);
 });
-// localStorage.clear();
 showLastWeather();
-console.log(history);
+
+
+
