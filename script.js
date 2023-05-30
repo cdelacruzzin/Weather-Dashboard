@@ -132,8 +132,9 @@ function searchLonLan(city_name) {
 
 
 function setEmoji(icon) {
-    var url = `https://openweathermap.org/img/wn/${icon}@2x.png`;   //takes the icon code, and uses the api url with the icon in arguement    
-    return url; q
+    var url = `https://openweathermap.org/img/wn/${icon}@2x.png`;   //takes the icon code, and uses the api url with the icon in arguement    \
+    console.log(url)
+    return url;
 }
 function convertTemp(temp) {    //unit conversion
     return (temp - 273.15).toFixed(2);
@@ -160,7 +161,8 @@ function showWeather() {
         t.text(dayTemps[a].date);
 
         var t = $(`#d${count}Emoji`);
-        t.text(dayTemps[a].emoji);
+        t.attr('src', dayTemps[a].emoji);
+        console.log(dayTemps[a].emoji)
 
         var t = $(`#d${count}Wind`);
         t.text(dayTemps[a].wind);
