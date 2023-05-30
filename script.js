@@ -212,8 +212,8 @@ searchBtn.on('click', function (event) {
 
 
 $(document).on('click', 'button', function(event) {
-    if ($(event.target).attr('class') === 'historyBns') {
-        console.log('hi')
+    if ($(event.target).attr('class') === 'historyBns') {   //checks if the clicked element has a class of 'historyBns
+        searchLonLan($(event.target).val());       //calls the searchLonLan function and passes the clicked button's value (city name) as the parameter
     }
 });
 
